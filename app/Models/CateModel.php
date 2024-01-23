@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CateModel extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        
+    ];
+    public function product(){
+        return $this->hasMany(ProductModel::class,'id_cate','id');
+    }
 }
