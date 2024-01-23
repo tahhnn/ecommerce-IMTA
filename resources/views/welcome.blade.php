@@ -18,7 +18,7 @@
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
             
             @if (Route::has('login'))
-            <div class="sm:fixed w-full justify-between sm:top-0 sm:right-0 flex p-6 z-10">
+            <div class="sm:fixed w-full justify-between sm:top-0 sm:right-0 flex p-6 z-10 border-b-[1px]">
                 <div class="flex gap-4">
                 
 
