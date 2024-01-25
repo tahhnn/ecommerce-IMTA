@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +28,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::match('/products-manager');
+    Route::match(['POST','GET'],'/product', [ProductController::class, 'list'])->name('product.list');
+    Route::match(['POST','GET'],'/product-create', [ProductController::class, 'create'])->name('product.create');
+    Route::match(['POST','GET'],'/product-edit/{id}', [ProductController::class, 'update'])->name('product.edit');
+    Route::get('/product-delete/{id}', [ProductController::class, 'delete']);
+    
+    Route::match(['POST','GET'],'/category', [CategoryController::class, 'list'])->name('category.list');
+    Route::match(['POST','GET'],'/category-create', [CategoryController::class, 'create'])->name('category.create');
+    Route::match(['POST','GET'],'/category-edit/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category-delete/{id}', [CategoryController::class, 'delete']);
 });
 
 require __DIR__.'/auth.php';

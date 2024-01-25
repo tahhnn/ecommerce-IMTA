@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        
     ];
 
     /**
@@ -43,6 +45,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     public function cart(){
-        return $this->hasMany(CartModel::class,'id_user','id');
+        return $this->hasMany(Cart::class,'id_user','id');
     }
 }
