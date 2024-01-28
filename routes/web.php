@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/home',[ProductController::class,'home']);
+Route::get('/detail/{id}',[ProductController::class,'detail']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
