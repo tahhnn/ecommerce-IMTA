@@ -1,5 +1,5 @@
-@extends('layouts.layout_base')
-@section('main')
+<x-client-layout>
+
 <section class="text-gray-600 body-font overflow-hidden">
 </div>
 <section class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right" style="max-width:1600px; height: 24rem; background-image: url('https://khuevipro.sirv.com/Images/7648_ede6972eba2e74288ab7f49b602f94bb.jpg');">
@@ -97,4 +97,5 @@
     </div>
    
   </section>
-@endsection
+
+</x-client-layout>

@@ -1,5 +1,5 @@
-@extends('layouts.layout_base')
-@section('main')
+<x-client-layout>
+
 <div class="carousel relative container mx-auto" style="max-width:1600px;">
     <div class="carousel-inner relative overflow-hidden w-full">
         <!--Slide 1-->
@@ -225,4 +225,5 @@
     </section>
     </div>
 </section>
-@endsection
+
+</x-client-layout>
