@@ -90,7 +90,9 @@ class ProductController extends Controller
             $file_name = $img->getClientOriginalName();
             $productUpdate->img = $file_name;
             $img->move('image',$file_name);
-
+            if(File::exists($file_name)){
+                File::delete($file_name);
+            }
             }else{
                 $productUpdate->img = $productUpdate->img;
             }
@@ -116,10 +118,5 @@ class ProductController extends Controller
         dd($e->getMessage());
        }
     }
-    public function countCart($id){
-        $_SESSION['count_cart'] = DB::table('cart')->where('id_user', '=', $id)->count();
-        return view('',[
-            'count_cart' => $_SESSION['count_cart'],
-        ]);
-    }
+    
 }
