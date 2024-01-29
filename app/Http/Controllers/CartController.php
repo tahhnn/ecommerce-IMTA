@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -23,5 +24,11 @@ class CartController extends Controller
         $cart_delete = Cart::find($id);
         $cart_delete->delete();
         return route(redirect(''));
+    }
+    public function countCart($id){
+        $_SESSION['count_cart'] = DB::table('cart')->where('id_user', '=', $id)->count();
+        return view('',[
+            'count_cart' => $_SESSION['count_cart'],
+        ]);
     }
 }
