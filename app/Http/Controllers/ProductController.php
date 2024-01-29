@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cate;
 use App\Models\Category;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -12,24 +13,37 @@ use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     public function home(){
-        $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
+        try {
+            $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
         
         return view('client.homepage',compact('product'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        };
     }
     public function detail(Request $request, $id)
     {
-        $data = Product::find($id);
+        try{
+            $data = Product::find($id);
         
-        $categories = Category::pluck('name', 'id');
-        return view('client.detail', compact('data' ,'categories')); 
+            $categories = Category::pluck('name', 'id');
+            return view('client.detail', compact('data' ,'categories')); 
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function list(){
-        $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
+        try{
+            $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
         
         return view('admin.product.list',compact('product'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function create(Request $request){
-        $cate = DB::table('categories')->get();
+        try{
+            $cate = DB::table('categories')->get();
        if($request->post()){
             $request->validate([
                 'name' => ['required','unique:products','max:225','min:3'],
@@ -47,12 +61,16 @@ class ProductController extends Controller
             $img->move('image',$file_name);
             $product->save();
             
-            return redirect(route('admin.product.list'));
+        return redirect(route('product.list'));
        }
         return view('admin.product.create',compact('cate'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function update(Request $request,$id){
-        $productUpdate = Product::find($id);
+        try{
+            $productUpdate = Product::find($id);
         
         $cate =  $cate = DB::table('categories')->get();
         if($request->post()){
@@ -74,15 +92,19 @@ class ProductController extends Controller
             $img->move('image',$file_name);
 
             }else{
-                $productUpdate->img = $request->oldImg;
+                $productUpdate->img = $productUpdate->img;
             }
            
             $productUpdate->save();
             return redirect(route('product.list'));
         }
     return view('admin.product.edit',compact('productUpdate','cate'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function delete($id){
+       try{
         $datadlt = Product::find($id);
         $img_path = public_path('image/' . $datadlt->img);
         if(File::exists($img_path)){
@@ -90,5 +112,14 @@ class ProductController extends Controller
         }
         $datadlt->delete();
         return redirect(route('product.list'));
+       }catch(Exception $e){
+        dd($e->getMessage());
+       }
+    }
+    public function countCart($id){
+        $_SESSION['count_cart'] = DB::table('cart')->where('id_user', '=', $id)->count();
+        return view('',[
+            'count_cart' => $_SESSION['count_cart'],
+        ]);
     }
 }
