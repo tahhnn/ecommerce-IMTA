@@ -47,7 +47,7 @@ class ProductController extends Controller
             $img->move('image',$file_name);
             $product->save();
             
-            return redirect(route('product.list'));
+            return redirect(route('admin.product.list'));
        }
         return view('admin.product.create',compact('cate'));
     }
