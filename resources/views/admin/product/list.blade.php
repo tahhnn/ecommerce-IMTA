@@ -44,7 +44,7 @@
                 {{$p->quantity}}
                 </td>
                 <td class="px-6 py-4">
-                <img width="200" src="{{ asset('image/' . $p->img) }}" alt="">
+                <img width="50" height="50" src="{{ asset('image/' . $p->img) }}" alt="">
                 </td>
                 <td class="px-6 py-4">
                 {{$p->cate_name}}

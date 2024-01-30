@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::match(['POST','GET'],'/category-create', [CategoryController::class, 'create'])->name('category.create');
     Route::match(['POST','GET'],'/category-edit/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/category-delete/{id}', [CategoryController::class, 'delete']);
+
+
+
+    Route::match(['POST','GET'],'/cart', [CartController::class, 'getAllCart'])->name('cart.list');
+    Route::match(['POST','GET'],'/cartDetail', [CartController::class, 'getCart'])->name('cart.cartDetail');
+
 });
 
 require __DIR__.'/auth.php';
