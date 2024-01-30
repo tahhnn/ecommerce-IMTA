@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.home');
 })->name('welcome');
 
+Route::get('/home',[ProductController::class,'home']);
+Route::get('/detail/{id}',[ProductController::class,'detail']);
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

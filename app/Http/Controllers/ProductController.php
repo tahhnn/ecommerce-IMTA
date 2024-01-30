@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cate;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,18 @@ use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
+    public function home(){
+        $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
+        
+        return view('client.homepage',compact('product'));
+    }
+    public function detail(Request $request, $id)
+    {
+        $data = Product::find($id);
+        
+        $categories = Category::pluck('name', 'id');
+        return view('client.detail', compact('data' ,'categories')); 
+    }
     public function list(){
         $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
         
@@ -34,7 +47,7 @@ class ProductController extends Controller
             $img->move('image',$file_name);
             $product->save();
             
-            return redirect(route('product.list'));
+            return redirect(route('admin.product.list'));
        }
         return view('admin.product.create',compact('cate'));
     }
