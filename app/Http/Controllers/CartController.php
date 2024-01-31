@@ -18,15 +18,28 @@ class CartController extends Controller
         return view('admin.cart.list',compact('cart'));
     }
     public function getCart(){
-        $cartinPR = DB::table('cartinproduct')
-        ->join('products', 'products.id', '=', 'cartinproduct.product_id')
-        ->join('users', 'users.id', '=', 'cartinproduct.user_id')
-        ->join('carts', 'carts.id', '=', 'cartinproduct.cart_id')
-        ->select('cartinproduct.*', 'products.name as product_name' , 'products.price as product_price')
+        $cartinPR = DB::table('cart_in_products')
+        ->join('products', 'products.id', '=', 'cart_in_products.product_id')
+        ->join('users', 'users.id', '=', 'cart_in_products.user_id')
+        ->join('carts', 'carts.id', '=', 'cart_in_products.cart_id')
+        ->select('cart_in_products.*', 'products.name as product_name' , 'products.price as product_price')
+        ->get();
+    
+        return view('client.cart',compact('cartinPR'));
+    }
+
+    public function getCartClient(){
+        $cartinPR = DB::table('cart_in_products')
+        ->join('products', 'products.id', '=', 'cart_in_products.product_id')
+        ->join('users', 'users.id', '=', 'cart_in_products.user_id')
+        ->join('carts', 'carts.id', '=', 'cart_in_products.cart_id')
+        ->select('cart_in_products.*', 'products.name as product_name' , 'products.price as product_price')
         ->get();
     
         return view('admin.cart.carDetail',compact('cartinPR'));
     }
+
+
     public function deleteCart($id){
         $cart_delete = Cart::find($id);
         $cart_delete->delete();
