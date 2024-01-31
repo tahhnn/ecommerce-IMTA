@@ -46,9 +46,9 @@ Route::middleware('auth')->group(function () {
 
 
     Route::match(['POST','GET'],'/cart', [CartController::class, 'getAllCart'])->name('cart.list');
-    Route::match(['POST','GET'],'/cartDetail', [CartController::class, 'getCart'])->name('cart.cartDetail');
+    Route::match(['POST','GET'],'/cartDetail', [CartController::class, 'getCartAdmin'])->name('cart.cartDetail');
 
-    Route::match(['POST','GET'],'/cartClient', [CartController::class, 'getCartClient'])->name('cart');
+    Route::match(['POST','GET'],'/cartClient', [CartController::class, 'getCart'])->name('cart');
 
 });
 

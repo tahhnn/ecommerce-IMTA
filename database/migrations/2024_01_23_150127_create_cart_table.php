@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('id_product');
             $table->string('id_user');
-            $table->string('address');
-            $table->integer('quantity');
-            $table->integer('amount');
+           
             $table->timestamps();
         });
     }
