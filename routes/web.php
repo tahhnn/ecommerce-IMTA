@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProductController::class,'home'])->name('welcome');
+Route::get('/', [ProductController::class, 'home'])->name('welcome');
 
-Route::get('/home',[ProductController::class,'home']);
+Route::get('/home', [ProductController::class, 'home']);
 // Route::match('/detail/{id}/{user_id}',[ProductController::class,'detail']);
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
@@ -32,10 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::match(['POST','GET'],'/product', [ProductController::class, 'list'])->name('product.list');
-    Route::match(['POST','GET'],'/detail/{id}/{user_id}', [ProductController::class, 'detail'])->name('product.addCart');
-    Route::match(['POST','GET'],'/product-create', [ProductController::class, 'create'])->name('product.create');
-    Route::match(['POST','GET'],'/product-edit/{id}', [ProductController::class, 'update'])->name('product.edit');
+    Route::match(['POST', 'GET'], '/product', [ProductController::class, 'list'])->name('product.list');
+    Route::match(['POST', 'GET'], '/detail/{id}/{user_id}', [ProductController::class, 'detail'])->name('product.addCart');
+    Route::match(['POST', 'GET'], '/product-create', [ProductController::class, 'create'])->name('product.create');
+    Route::match(['POST', 'GET'], '/product-edit/{id}', [ProductController::class, 'update'])->name('product.edit');
     Route::get('/product-delete/{id}', [ProductController::class, 'delete']);
 
     Route::match(['POST', 'GET'], '/category', [CategoryController::class, 'list'])->name('category.list');
@@ -45,16 +45,15 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::match(['POST','GET'],'/cart', [CartController::class, 'getAllCart'])->name('cart.list');
-    Route::match(['POST','GET'],'/cartDetail', [CartController::class, 'getCart'])->name('cart.cartDetail');
+    Route::match(['POST', 'GET'], '/cart', [CartController::class, 'getAllCart'])->name('cart.list');
+    Route::match(['POST', 'GET'], '/cartDetail', [CartController::class, 'getCart'])->name('cart.cartDetail');
 
-    Route::match(['POST','GET'],'/cartClient', [CartController::class, 'getCartClient'])->name('cart');
-
+    Route::match(['POST', 'GET'], '/cartClient', [CartController::class, 'getCartClient'])->name('cart');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('/bill', BillController::class);
-    Route::resource('/bill-detail', BillDetailController::class);
+    Route::resource('/bill', BillController::class)->names('bills');
+    Route::get('/billDetail/{billDetail}', [BillDetailController::class, 'deleteBillDetail'])->name('bills.billDetailroute');
 });
 
 require __DIR__ . '/auth.php';
