@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('client.home');
-})->name('welcome');
+Route::get('/', [ProductController::class,'home'])->name('welcome');
 
 Route::get('/home',[ProductController::class,'home']);
 Route::get('/detail/{id}',[ProductController::class,'detail']);
