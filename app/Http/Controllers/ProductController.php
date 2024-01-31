@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartInProduct;
 use App\Models\Cate;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -12,24 +15,59 @@ use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     public function home(){
-        $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
+        try {
+            $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
         
         return view('client.homepage',compact('product'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        };
     }
-    public function detail(Request $request, $id)
+    public function detail(Request $request, $id, $user_id)
     {
-        $data = Product::find($id);
-        
-        $categories = Category::pluck('name', 'id');
-        return view('client.detail', compact('data' ,'categories')); 
+        try {
+            // Lấy thông tin sản phẩm
+            $data = Product::find($id);
+            $user = User::find($user_id);
+            $categories = Category::pluck('name', 'id');
+            // Truy vấn carts của user
+            $cart = DB::table('carts')
+                ->where('id_user', $user_id)
+                ->get();
+    
+            if ($request->isMethod('post')) {
+                // Tạo mới một CartInProduct
+                $CartPR = new CartInProduct();
+                $CartPR->product_id = $data->id;
+                $CartPR->user_id = $user->id;
+    
+                // Kiểm tra nếu có carts của user
+                if ($cart->isNotEmpty()) {
+                    $CartPR->cart_id = $cart->first()->id; // Lấy id của carts đầu tiên
+                }
+    
+                $CartPR->save();
+    
+                return redirect(route('cart'));
+            }
+    
+            return view('client.detail', compact('data', 'categories'));
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
     public function list(){
-        $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
+        try{
+            $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
         
         return view('admin.product.list',compact('product'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function create(Request $request){
-        $cate = DB::table('categories')->get();
+        try{
+            $cate = DB::table('categories')->get();
        if($request->post()){
             $request->validate([
                 'name' => ['required','unique:products','max:225','min:3'],
@@ -47,12 +85,16 @@ class ProductController extends Controller
             $img->move('image',$file_name);
             $product->save();
             
-            return redirect(route('admin.product.list'));
+        return redirect(route('product.list'));
        }
         return view('admin.product.create',compact('cate'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function update(Request $request,$id){
-        $productUpdate = Product::find($id);
+        try{
+            $productUpdate = Product::find($id);
         
         $cate =  $cate = DB::table('categories')->get();
         if($request->post()){
@@ -72,17 +114,23 @@ class ProductController extends Controller
             $file_name = $img->getClientOriginalName();
             $productUpdate->img = $file_name;
             $img->move('image',$file_name);
-
+            if(File::exists($file_name)){
+                File::delete($file_name);
+            }
             }else{
-                $productUpdate->img = $request->oldImg;
+                $productUpdate->img = $productUpdate->img;
             }
            
             $productUpdate->save();
             return redirect(route('product.list'));
         }
     return view('admin.product.edit',compact('productUpdate','cate'));
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
     }
     public function delete($id){
+       try{
         $datadlt = Product::find($id);
         $img_path = public_path('image/' . $datadlt->img);
         if(File::exists($img_path)){
@@ -90,5 +138,9 @@ class ProductController extends Controller
         }
         $datadlt->delete();
         return redirect(route('product.list'));
+       }catch(Exception $e){
+        dd($e->getMessage());
+       }
     }
+    
 }

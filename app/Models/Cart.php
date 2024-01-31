@@ -9,6 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'id_product',
         'id_user',
         'address',
@@ -21,4 +22,9 @@ class Cart extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function cartinproduct(){
+        return $this->hasMany(CartInProduct::class,'cart_id','id');
+    }
+
 }
