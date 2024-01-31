@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->timestamps();
 
-            $table->foreign('id_bill')->references("id")->on('bills')->onDelete('cascade');
-            $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade');
+            // $table->foreign('id_bill')->references("id")->on('bills')->onDelete('cascade');
+            // $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

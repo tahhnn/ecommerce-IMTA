@@ -15,10 +15,10 @@ class BillDetail extends Model
     ];
     public function bill()
     {
-        return $this->belongsTo(Bill::class);
+        return $this->hasOne(Bill::class, 'id_bill', 'id');
     }
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasOne(Product::class, 'id_product', 'id');
     }
 }
