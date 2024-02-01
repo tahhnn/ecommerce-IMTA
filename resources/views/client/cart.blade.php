@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-client-layout>
     
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg m-5">
@@ -44,4 +44,4 @@
     <h1 style="margin-left: 1150px;">Tổng Tiền :{{$totalPrice}} </h1>
 </div>
 
-</x-app-layout>
+</x-client-layout>

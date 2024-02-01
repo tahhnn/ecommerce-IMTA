@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\CartInProduct;
 use App\Models\Cate;
 use App\Models\Category;
@@ -24,38 +25,44 @@ class ProductController extends Controller
         };
     }
     public function detail(Request $request, $id, $user_id)
-    {
-        try {
-            // Lấy thông tin sản phẩm
-            $data = Product::find($id);
-            $user = User::find($user_id);
-            $categories = Category::pluck('name', 'id');
-            // Truy vấn carts của user
-            $cart = DB::table('carts')
-                ->where('id_user', $user_id)
-                ->get();
-    
-            if ($request->isMethod('post')) {
-                // Tạo mới một CartInProduct
-                $CartPR = new CartInProduct();
-                $CartPR->product_id = $data->id;
-                $CartPR->user_id = $user->id;
-    
-                // Kiểm tra nếu có carts của user
-                if ($cart->isNotEmpty()) {
-                    $CartPR->cart_id = $cart->first()->id; // Lấy id của carts đầu tiên
-                }
-    
-                $CartPR->save();
-    
-                return redirect(route('cart'));
+{
+    try {
+        
+        $data = Product::find($id);
+        $user = User::find($user_id);
+        $categories = Category::pluck('name', 'id');
+        
+      
+        $cart = Cart::where('id_user', $user_id)->get();
+        
+        if ($request->isMethod('post')) {
+            
+            if ($cart->isEmpty()) {
+                $newCart = new Cart();
+                $newCart->id_user = $user_id;
+                $newCart->id_product = $data->id;
+                $newCart->save();
+                $cart_id = $newCart->id;
+            } else {
+                $cart_id = $cart->first()->id;
             }
-    
-            return view('client.detail', compact('data', 'categories'));
-        } catch (Exception $e) {
-            dd($e->getMessage());
+
+            
+            $CartPR = new CartInProduct();
+            $CartPR->product_id = $data->id;
+            $CartPR->user_id = $user->id;
+            $CartPR->cart_id = $cart_id;
+            $CartPR->save();
+
+            return redirect(route('cart'));
         }
+
+        return view('client.detail', compact('data', 'categories'));
+    } catch (Exception $e) {
+        dd($e->getMessage());
     }
+}
+
     public function list(){
         try{
             $product = Product::join('categories', 'categories.id', '=' , 'products.id_cate')->select('products.*','categories.name as cate_name')->get();
