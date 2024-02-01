@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
 {
@@ -21,6 +22,15 @@ class BillController extends Controller
         $bills = DB::table('bills')
             ->join('users', 'users.id', '=', 'bills.id_user')
             ->select('users.name as user_name', 'bills.*')
+            ->get();
+        return view('admin.bill.listBill', compact('bills'));
+    }
+    public function getBillByClient()
+    {
+        $bills = DB::table('bills')
+            ->join('users', 'users.id', '=', 'bills.id_user')
+            ->select('users.name as user_name', 'bills.*')
+            ->where(Auth::user()->id, '=', 'bills.id_user')
             ->get();
         return view('admin.bill.listBill', compact('bills'));
     }

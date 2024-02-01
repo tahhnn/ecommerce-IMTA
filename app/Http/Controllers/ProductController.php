@@ -24,10 +24,10 @@ class ProductController extends Controller
             dd($e->getMessage());
         };
     }
-    public function detail(Request $request, $id, $user_id)
+    public function detail(Request $request, $id)
 {
     try {
-        
+        $user_id = auth()->id();
         $data = Product::find($id);
         $user = User::find($user_id);
         $categories = Category::pluck('name', 'id');
@@ -36,25 +36,29 @@ class ProductController extends Controller
         $cart = Cart::where('id_user', $user_id)->get();
         
         if ($request->isMethod('post')) {
-            
-            if ($cart->isEmpty()) {
-                $newCart = new Cart();
-                $newCart->id_user = $user_id;
-                $newCart->id_product = $data->id;
-                $newCart->save();
-                $cart_id = $newCart->id;
-            } else {
-                $cart_id = $cart->first()->id;
+            if($user_id != null){
+
+                if ($cart->isEmpty()) {
+                    $newCart = new Cart();
+                    $newCart->id_user = $user_id;
+                    $newCart->id_product = $data->id;
+                    $newCart->save();
+                    $cart_id = $newCart->id;
+                } else {
+                    $cart_id = $cart->first()->id;
+                }
+    
+                
+                $CartPR = new CartInProduct();
+                $CartPR->product_id = $data->id;
+                $CartPR->user_id = $user->id;
+                $CartPR->cart_id = $cart_id;
+                $CartPR->save();
+    
+                return redirect(route('cart'));
+            }else{
+                return redirect(route('login'));
             }
-
-            
-            $CartPR = new CartInProduct();
-            $CartPR->product_id = $data->id;
-            $CartPR->user_id = $user->id;
-            $CartPR->cart_id = $cart_id;
-            $CartPR->save();
-
-            return redirect(route('cart'));
         }
 
         return view('client.detail', compact('data', 'categories'));

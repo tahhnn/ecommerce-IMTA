@@ -16,10 +16,10 @@ return new class extends Migration
             $table->date('paid_date');
             $table->integer('status');
             $table->integer('total_bill');
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
             $table->timestamps();
 
-            // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

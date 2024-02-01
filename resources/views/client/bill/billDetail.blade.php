@@ -1,7 +1,8 @@
-<x-app-layout>
+<x-client-layout>
     <div class="pt-14">
-        <form class=" mx-32" method="POST" enctype="multipart/form-data">
+        <form class=" mx-32" action="{{ route('billClient.vnpay_payment', $bill->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+                <input class="hidden" name="id" id="id" value="{{ $bill->id }}" readonly/>
               <div class="relative mb-5 group mx-11">
                   <label for="name" class="">Customer name</label>
                   <input type="text" value="{{$bill->user_name}}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" readonly/>
@@ -14,8 +15,8 @@
                   <label for="name">Paid date</label>
                 <input type="text" value="{{$bill->paid_date}}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" readonly/>
             </div>
-    
-            </form>
+            <button type="submit" name="redirect" class="btn btn-warning ml-10 text-yellow-400 hover:text-white">Thanh toán</button>
+            
     </div>    
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg m-5">
@@ -73,7 +74,7 @@
         </tbody>
     </table>
     
-    <h1 class="ml-4">Tổng Tiền: {{$total_bill}} VNĐ</h1>
+    <h1 class="ml-4">Tổng Tiền:    $<input type="number" class="border-none" name="total_bill" id="total_bill" value="{{$bill->total_bill}}" readonly/></h1>
 </div>
-
-</x-app-layout>
+</form>
+</x-client-layout>
