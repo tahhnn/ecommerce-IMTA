@@ -27,13 +27,13 @@ Route::get('/home',[ProductController::class,'home']);
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::match(['POST','GET'],'/detail/{id}', [ProductController::class, 'detail'])->name('product.addCart');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::match(['POST','GET'],'/product', [ProductController::class, 'list'])->name('product.list');
-    Route::match(['POST','GET'],'/detail/{id}/{user_id}', [ProductController::class, 'detail'])->name('product.addCart');
     Route::match(['POST','GET'],'/product-create', [ProductController::class, 'create'])->name('product.create');
     Route::match(['POST','GET'],'/product-edit/{id}', [ProductController::class, 'update'])->name('product.edit');
     Route::get('/product-delete/{id}', [ProductController::class, 'delete']);
