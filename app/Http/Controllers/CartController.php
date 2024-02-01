@@ -46,9 +46,10 @@ class CartController extends Controller
 
 
     public function deleteCart($id){
-        $cart_delete = Cart::find($id);
+        
+        $cart_delete = DB::table('cart_in_product')->where('id','=', $id);
         $cart_delete->delete();
-        return route(redirect(''));
+        return redirect(route('cart'));
     }
     public function countCart($id){
         $_SESSION['count_cart'] = DB::table('cart')->where('id_user', '=', $id)->count();
