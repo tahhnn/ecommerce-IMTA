@@ -28,7 +28,7 @@
                 </th>
                 
                 <td class="px-6 py-4">
-                    <a href="/cartDetail" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">CartDetail</a>
+                    <a href="/cartDetail/{{$p->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">CartDetail</a>
                    
                 </td>
             </tr>

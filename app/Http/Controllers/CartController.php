@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\CartInProduct;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -33,14 +31,15 @@ class CartController extends Controller
         return view('client.cart',compact('cartinPR'));
     }
 
-    public function getCartAdmin(){
+    public function getCartAdmin($id){
         $cartinPR = DB::table('cart_in_product')
         ->join('products', 'products.id', '=', 'cart_in_product.product_id')
         ->join('users', 'users.id', '=', 'cart_in_product.user_id')
         ->join('carts', 'carts.id', '=', 'cart_in_product.cart_id')
         ->select('cart_in_product.*', 'products.name as product_name' , 'products.price as product_price')
+        ->where('cart_id', '=', $id)
         ->get();
-    
+        
         return view('admin.cart.carDetail',compact('cartinPR'));
     }
 
