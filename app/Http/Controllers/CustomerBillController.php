@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Bill;
 use App\Models\BillDetail;
+use App\Models\CartInProduct;
 use App\Models\Product;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Carbon;
@@ -46,7 +47,7 @@ class CustomerBillController extends Controller
         $vnp_TmnCode = "UW8YUL6R"; //Mã website tại VNPAY 
         $vnp_HashSecret = "SYAIJLPJMEXDCDLYDYEDQYKPPONBRDIO"; //Chuỗi bí mật
 
-        $vnp_TxnRef = '$bill_id1234567' . "_bill_code"; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = $bill_id . "_bill_code"; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán hóa đơn';
         $vnp_OrderType = 'Thanh toán online';
         $vnp_Amount = $bill_total * 100;
@@ -121,8 +122,10 @@ class CustomerBillController extends Controller
 
         $total_bill = 0;
         foreach ($products as $p) {
-            $product = Product::find($p['id']);
-            $billDetail = ['id_bill' => $bill->id, 'id_product' => $p['id'], 'quantity' => 1];
+            $cart_in_product = CartInProduct::find($p['id']);
+            $product = Product::find($cart_in_product->product_id);
+            // dd($product);
+            $billDetail = ['id_bill' => $bill->id, 'id_product' => $product->id, 'quantity' => 1];
             $billDetail = BillDetail::create($billDetail);
             $total_bill += $billDetail->quantity * $product->price;
         }
