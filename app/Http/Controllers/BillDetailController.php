@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
+use App\Models\BillDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class BillDetailController extends Controller
 {
@@ -57,8 +61,16 @@ class BillDetailController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function deleteBillDetail(Bill $bill, BillDetail $billDetail)
     {
-        //
+        // dd($billDetail);
+        $bill = Bill::find($billDetail->id_bill);
+        $message = 'Hóa đơn đã thanh toán, không thể xóa!!!';
+        if ($bill->status == 0) {
+            $message = 'Xóa hóa đơn chi tiết thành công!!!';
+            $billDetail->delete();
+        }
+        Session::flash('message', $message);
+        return Redirect::back();
     }
 }

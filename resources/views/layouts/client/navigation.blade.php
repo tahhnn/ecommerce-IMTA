@@ -17,7 +17,9 @@
                     <div class="flex gap-2">
                         <p >Xin chào, {{ Auth::user()->name }}</p>
                         <!-- check role -->
+                        @if (Auth::user()->role==1)
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400  focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        @endif
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
