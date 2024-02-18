@@ -11,7 +11,8 @@ class Bill extends Model
     protected $fillable = [
         "id_user",
         "paid_date",
-        "total_bill",
+        "status",
+        "total_bill"
     ];
     public function user()
     {
