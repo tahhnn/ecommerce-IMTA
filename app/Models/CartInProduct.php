@@ -14,6 +14,7 @@ class CartInProduct extends Model
         'user_id',
         'product_id',
         'cart_id',
+        'quantity',
              
     ];
     public function product(){
