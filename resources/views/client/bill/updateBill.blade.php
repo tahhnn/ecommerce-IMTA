@@ -5,6 +5,9 @@
     </div>
 @endif
     <div class="pt-14">
+    <div>
+
+    </div>
         <form class="mx-32 flex flex-col" action="{{ route('billClient.update', $bill->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -14,8 +17,12 @@
                   <input type="text" name="" value="{{$bill->user_name}}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" readonly/>
               </div>
               <div class="relative  mb-5 group mx-11">
-                  <label for="name" >Status</label>
-                  <input type="text" name="status" id='status' value="{{ $bill->status }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" readonly/>
+                  <label for="name" >Payment status</label>
+                  <input type="text" name="status" id='status' value="{{ $bill->status == 0? "Chưa thanh toán": "Đã thanh toán" }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" readonly/>
+            </div>
+              <div class="relative  mb-5 group mx-11">
+                  <label for="name" >Bill status</label>
+                  <input type="text" name="status_bill" id='status_bill' value="{{ $bill->status_bill == 0? "Đơn không khả dụng":($bill->status_bill == 1? "Đang đặt hàng":($bill->status_bill == 2? "Đang chờ giao": ($bill->status_bill == 3? "Đang giao":($bill->status_bill == 4? "Đã giao": "Hoàn trả")))) }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" readonly/>
             </div>
               <div class="relative mb-5 group mx-11">
                   <label for="name">Paid date</label>
@@ -83,7 +90,7 @@
                             
                         </tbody>
                     </table>
-                    <h1 class="ml-4">Tổng Tiền: <input type="text" class="border-none" name="bill[total_bill]" id="bill[total_bill]" value="{{$total_bill}}" readonly/>  VNĐ</h1>
+                    <h1 class="ml-4">Tổng Tiền:$ <input type="text" class="border-none" name="bill[total_bill]" id="bill[total_bill]" value="{{$total_bill}}" readonly/></h1>
                 </div>
             </form>
     </div>    

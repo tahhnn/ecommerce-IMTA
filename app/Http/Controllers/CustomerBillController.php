@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
+
 class CustomerBillController extends Controller
 {
+
     public function index()
     {
         $bills = DB::table('bills')
@@ -24,8 +28,11 @@ class CustomerBillController extends Controller
             ->select('users.name as user_name', 'bills.*')
             ->where('bills.id_user', '=', Auth::user()->id)
             ->get();
-        return view('client.bill.listBill', compact('bills'));
+        $status_bill = -1;
+        return view('client.bill.listBill', compact('bills', 'status_bill'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,17 +44,19 @@ class CustomerBillController extends Controller
     public function vnpay_payment(Request $request)
     {
         $bill_id = $request->get('id');
-        $bill_total  = $request->get('total_bill');
+
 
         $bill = Bill::find($bill_id);
-        $bill->status = 1;
 
+        $bill_total  = $bill->total_bill;
+        $bill->status = 1;
+        $bill->status_bill = 1;
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/bill-client";
+        $vnp_Returnurl = route('billClient.return_payment', $bill->id);
         $vnp_TmnCode = "UW8YUL6R"; //Mã website tại VNPAY 
         $vnp_HashSecret = "SYAIJLPJMEXDCDLYDYEDQYKPPONBRDIO"; //Chuỗi bí mật
 
-        $vnp_TxnRef = $bill_id . "_bill_code"; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = $bill_id . "22356789912345678912345678912345678" . "_bill_code"; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán hóa đơn';
         $vnp_OrderType = 'Thanh toán online';
         $vnp_Amount = $bill_total * 100;
@@ -100,6 +109,7 @@ class CustomerBillController extends Controller
         $returnData = array(
             'code' => '00', 'message' => 'success', 'data' => $vnp_Url
         );
+
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
             $bill->update();
@@ -116,7 +126,7 @@ class CustomerBillController extends Controller
     {
         $products = $request->get('cartinPR');
         $bill = [
-            'paid_date' => Carbon::now()->format('Y-m-d'), 'status' => 0, 'total_bill' => 0, 'id_user' => Auth::user()->id
+            'paid_date' => Carbon::now()->format('Y-m-d'), 'status' => 0, 'status_bill' => 0, 'payment_type' => 0, 'total_bill' => 0, 'id_user' => Auth::user()->id
         ];
         $bill = Bill::create($bill);
 
@@ -139,17 +149,40 @@ class CustomerBillController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Request $request, string $id)
     {
+
         $bill = Bill::join('users', 'users.id', '=', 'bills.id_user')
             ->select('users.name as user_name', 'bills.*')
             ->where('bills.id', $id)
             ->first();
+
         $billDetails = DB::table('bill_details')
             ->join('products', 'products.id', '=', 'bill_details.id_product')
             ->select('products.name as product_name', 'products.price as product_price', 'products.img as product_img', 'bill_details.*')
             ->where('id_bill', $id)->get();
         return view('client.bill.billDetail', compact('bill', 'billDetails'));
+    }
+
+    public function return_payment(string $id)
+    {
+        $bill = Bill::join('users', 'users.id', '=', 'bills.id_user')
+            ->select('users.name as user_name', 'bills.*')
+            ->where('bills.id', $id)
+            ->first();
+        $mailData = [
+            "title" => "Thanh toán đơn hàng thành công",
+            "bill_code" => $bill->id . "_bill_code",
+            "customer" => Auth::user()->name,
+            "total_bill" => $bill->total_bill,
+        ];
+        Mail::to(Auth::user()->email)->send(new SendMail($mailData));
+        $billDetails = DB::table('bill_details')
+            ->join('products', 'products.id', '=', 'bill_details.id_product')
+            ->select('products.name as product_name', 'products.price as product_price', 'products.img as product_img', 'bill_details.*')
+            ->where('id_bill', $id)->get();
+        return view('client.bill.returnPayment', compact('bill', 'billDetails'));
     }
 
     /**
@@ -212,12 +245,40 @@ class CustomerBillController extends Controller
     {
         $bill = Bill::find($id);
         $message = 'Hóa đơn đã thanh toán, không thể xóa!!!';
-        if ($bill->status == 0) {
+        if (($bill->status_bill == 0 || $bill->status_bill == 1) && $bill->status == 0) {
 
             $bill->delete();
             $message = 'Xóa hóa đơn thành công!!!';
         }
         Session::flash('message', $message);
         return redirect()->route('billClient.index');
+    }
+
+
+
+    public function cancel_bill(string $id)
+    {
+        $bill = Bill::find($id);
+        $message = 'Hóa đơn đã thanh toán, không thể hủy!!!';
+        if (($bill->status_bill == 0 || $bill->status_bill == 1) && $bill->status == 0) {
+            $message = 'Hủy hóa đơn thành công!!!';
+            $bill->status_bill = 0;
+            $bill->update();
+        }
+        Session::flash('message', $message);
+        return redirect()->route('billClient.index');
+    }
+
+
+
+    public function find_bill_by_statusBill(int $status_bill)
+    {
+        $bills = DB::table('bills')
+            ->join('users', 'users.id', '=', 'bills.id_user')
+            ->select('users.name as user_name', 'bills.*')
+            ->where('bills.id_user', '=', Auth::user()->id)
+            ->where('bills.status_bill', '=', $status_bill)
+            ->get();
+        return view('client.bill.listBill', compact('bills', 'status_bill'));
     }
 }
