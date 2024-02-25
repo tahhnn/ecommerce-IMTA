@@ -70,24 +70,54 @@
 
 
 </div>
-<section class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right" style="max-width; height: 24rem; background-image: url('https://khuevipro.sirv.com/ro-ri-anh-poster-va-anh-thuc-te-cua-the-he-galaxy-s20-sap-ra-mat-xtmobile-banner.jpg');">
-<div class="container mx-auto">
-    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start  px-6 tracking-wide">
-        <h1 class="text-white text-2xl my-4"></h1>
-        <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-white hover:border-black" href="#"></a>
-    </div>
+  <section class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right" style="max-width; height: 24rem; background-image: url('https://khuevipro.sirv.com/ro-ri-anh-poster-va-anh-thuc-te-cua-the-he-galaxy-s20-sap-ra-mat-xtmobile-banner.jpg');">
+      
+  </section>
+  
+  <div class=" mt-4 mb-4  mx-auto">
+      <div class="font-medium flex justify-center items-center my-3 text-[30px]">MẶT HÀNG NỔI BẬT</div>
+      <div class="grid md:grid-cols-4 gap-4">
+         <div class="">
+          <img src="https://khuevipro.sirv.com/Images/fold-5-chinh-thuc-2.webp" width="298px" height="298px" alt="">
+          <div class=" w-full rounded-2xl border border-black flex justify-around items-center text-black text-[30px] font-bold hover:bg-black hover:text-white transition-all duration-500">
+            Samsung
+            <svg fill="#ffffff" width="30px" height="30px" viewBox="-1.6 -1.6 35.20 35.20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" stroke="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.000,32.000 C7.178,32.000 0.000,24.822 0.000,16.000 C0.000,7.178 7.178,-0.000 16.000,-0.000 C24.822,-0.000 32.000,7.178 32.000,16.000 C32.000,24.822 24.822,32.000 16.000,32.000 ZM16.000,2.000 C8.280,2.000 2.000,8.280 2.000,16.000 C2.000,23.720 8.280,30.000 16.000,30.000 C23.720,30.000 30.000,23.720 30.000,16.000 C30.000,8.280 23.720,2.000 16.000,2.000 ZM23.923,16.382 C23.872,16.505 23.799,16.615 23.706,16.708 L19.707,20.707 C19.512,20.902 19.256,21.000 19.000,21.000 C18.744,21.000 18.488,20.902 18.293,20.707 C17.902,20.316 17.902,19.684 18.293,19.293 L20.586,17.000 L9.000,17.000 C8.448,17.000 8.000,16.552 8.000,16.000 C8.000,15.448 8.448,15.000 9.000,15.000 L20.586,15.000 L18.293,12.707 C17.902,12.316 17.902,11.684 18.293,11.293 C18.684,10.902 19.316,10.902 19.707,11.293 L23.706,15.292 C23.799,15.385 23.872,15.495 23.923,15.618 C24.024,15.862 24.024,16.138 23.923,16.382 Z"></path> </g></svg>
+        </div>
+         </div>
+         <div class="relative">
+          <img src="https://khuevipro.sirv.com/Images/1611082025-jpeg.webp" width="298px" height="298px" alt="Ảnh"  class="w-full h-auto">
+          <div class=" w-full rounded-2xl border border-black flex justify-around items-center text-black text-[30px] font-bold hover:bg-black hover:text-white transition-all duration-500">
+              Oppo
+              <svg  fill="#ffffff" width="30px" height="30px" viewBox="-1.6 -1.6 35.20 35.20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" stroke="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.000,32.000 C7.178,32.000 0.000,24.822 0.000,16.000 C0.000,7.178 7.178,-0.000 16.000,-0.000 C24.822,-0.000 32.000,7.178 32.000,16.000 C32.000,24.822 24.822,32.000 16.000,32.000 ZM16.000,2.000 C8.280,2.000 2.000,8.280 2.000,16.000 C2.000,23.720 8.280,30.000 16.000,30.000 C23.720,30.000 30.000,23.720 30.000,16.000 C30.000,8.280 23.720,2.000 16.000,2.000 ZM23.923,16.382 C23.872,16.505 23.799,16.615 23.706,16.708 L19.707,20.707 C19.512,20.902 19.256,21.000 19.000,21.000 C18.744,21.000 18.488,20.902 18.293,20.707 C17.902,20.316 17.902,19.684 18.293,19.293 L20.586,17.000 L9.000,17.000 C8.448,17.000 8.000,16.552 8.000,16.000 C8.000,15.448 8.448,15.000 9.000,15.000 L20.586,15.000 L18.293,12.707 C17.902,12.316 17.902,11.684 18.293,11.293 C18.684,10.902 19.316,10.902 19.707,11.293 L23.706,15.292 C23.799,15.385 23.872,15.495 23.923,15.618 C24.024,15.862 24.024,16.138 23.923,16.382 Z"></path> </g></svg>
+          </div>
+      </div>
+         <div>
+          <img src="https://khuevipro.sirv.com/Images/0b264f15a28153df0a90-16fc2261-343c-4e5a-abcc-0fa412b421b2-a5c5a1b6-95eb-4592-972a-e467a0b60594.webp" width="298px" height="298px" alt="">
+          <div class=" w-full rounded-2xl border border-black flex justify-around items-center text-black text-[30px] font-bold hover:bg-black hover:text-white transition-all duration-500">
+            Iphone
+            <svg fill="#ffffff" width="30px" height="30px" viewBox="-1.6 -1.6 35.20 35.20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" stroke="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.000,32.000 C7.178,32.000 0.000,24.822 0.000,16.000 C0.000,7.178 7.178,-0.000 16.000,-0.000 C24.822,-0.000 32.000,7.178 32.000,16.000 C32.000,24.822 24.822,32.000 16.000,32.000 ZM16.000,2.000 C8.280,2.000 2.000,8.280 2.000,16.000 C2.000,23.720 8.280,30.000 16.000,30.000 C23.720,30.000 30.000,23.720 30.000,16.000 C30.000,8.280 23.720,2.000 16.000,2.000 ZM23.923,16.382 C23.872,16.505 23.799,16.615 23.706,16.708 L19.707,20.707 C19.512,20.902 19.256,21.000 19.000,21.000 C18.744,21.000 18.488,20.902 18.293,20.707 C17.902,20.316 17.902,19.684 18.293,19.293 L20.586,17.000 L9.000,17.000 C8.448,17.000 8.000,16.552 8.000,16.000 C8.000,15.448 8.448,15.000 9.000,15.000 L20.586,15.000 L18.293,12.707 C17.902,12.316 17.902,11.684 18.293,11.293 C18.684,10.902 19.316,10.902 19.707,11.293 L23.706,15.292 C23.799,15.385 23.872,15.495 23.923,15.618 C24.024,15.862 24.024,16.138 23.923,16.382 Z"></path> </g></svg>
+        </div>
+        </div>
+         <div>
+          <img src="https://khuevipro.sirv.com/Images/Xiaomi-redmi-note-10-je-5g.jpg" width="298px" height="298px" alt="">
+          <div class=" w-full rounded-2xl border border-black flex justify-around items-center text-black text-[30px] font-bold hover:bg-black hover:text-white transition-all duration-500">
+            Xiaomi
+            <svg fill="#ffffff" width="30px" height="30px" viewBox="-1.6 -1.6 35.20 35.20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" stroke="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.000,32.000 C7.178,32.000 0.000,24.822 0.000,16.000 C0.000,7.178 7.178,-0.000 16.000,-0.000 C24.822,-0.000 32.000,7.178 32.000,16.000 C32.000,24.822 24.822,32.000 16.000,32.000 ZM16.000,2.000 C8.280,2.000 2.000,8.280 2.000,16.000 C2.000,23.720 8.280,30.000 16.000,30.000 C23.720,30.000 30.000,23.720 30.000,16.000 C30.000,8.280 23.720,2.000 16.000,2.000 ZM23.923,16.382 C23.872,16.505 23.799,16.615 23.706,16.708 L19.707,20.707 C19.512,20.902 19.256,21.000 19.000,21.000 C18.744,21.000 18.488,20.902 18.293,20.707 C17.902,20.316 17.902,19.684 18.293,19.293 L20.586,17.000 L9.000,17.000 C8.448,17.000 8.000,16.552 8.000,16.000 C8.000,15.448 8.448,15.000 9.000,15.000 L20.586,15.000 L18.293,12.707 C17.902,12.316 17.902,11.684 18.293,11.293 C18.684,10.902 19.316,10.902 19.707,11.293 L23.706,15.292 C23.799,15.385 23.872,15.495 23.923,15.618 C24.024,15.862 24.024,16.138 23.923,16.382 Z"></path> </g></svg>
+        </div> 
+        </div>
+      </div>
   </div>
-</section>
+{{-- <div class=" swiper-slide w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right"  style="max-width; height: 24rem; background-image:url('https://khuevipro.sirv.com/ro-ri-anh-poster-va-anh-thuc-te-cua-the-he-galaxy-s20-sap-ra-mat-xtmobile-banner.jpg');"></div> --}}
 
-<section class="bg-white py-8">
+<section class="" style="max-width; height: 450px; background-image:url('https://khuevipro.sirv.com/Images/gradient-bg.jpg');">
 
-    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+    <div class="container mx-auto flex items-center flex-wrap  " >
 
         <nav id="store" class="w-full z-30 top-0 px-6 py-1">
-            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 ">
 
-                <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
-            Sản phẩm
+                <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl mt-4 " href="#">
+            Sản phẩm 
         </a>
 
                 <div class="flex items-center" id="store-nav-content">
@@ -108,9 +138,14 @@
           </div>
         </nav>
         @include('client.productlist')
-        
-        </div>
-
+ </div>
+ <div class="flex justify-center items-center ">
+  <a href="/shop">
+    <div class="border border-gray-400 rounded-md font-bold bg-gray-200 text-gray-800 px-4 py-2 transition duration-300 ease-in-out hover:bg-pink-200 hover:border-gray-500 hover:text-white">
+      Xem thêm
+  </div>
+  </a>
+</div>
 </section>
 <section class="bg-white py-8">
     <div class="container py-8 px-6 mx-auto">
@@ -213,4 +248,37 @@
     </div>
 </section>
 
+<div class="w-full mx-auto p-6 grid lg:grid-cols-4 gap-8 ">   
+  <div>
+      <img class="hover:grow hover:shadow-lg rounded-lg" src="https://theme.hstatic.net/200000690725/1001078549/14/home_policy_icon_1.png?v=281"  alt="">
+      <div class="pt-3 items-center justify-between">
+          <p class="font-medium">Miễn phí vận chuyển</p>
+          <p>Áp dụng cho mọi đơn hàng từ 500k</p>
+      </div>
+  </div>
+    <div>
+      <img class="hover:grow hover:shadow-lg rounded-lg" src="	https://theme.hstatic.net/200000690725/1001078549/14/home_policy_icon_2.png?v=281"  alt="">
+      <div class="pt-3 items-center justify-between">
+          <p class="font-medium">Đổi trả dễ dàng</p>
+          <p>7 ngày đổi trả vì bất kì lí do gì</p>
+          
+      </div>
+    </div>
+    <div>
+      <img class="hover:grow hover:shadow-lg rounded-lg" src="https://theme.hstatic.net/200000690725/1001078549/14/home_policy_icon_3.png?v=281"  alt="">
+      <div class="pt-3  items-center justify-between">
+          <p class="font-medium">Hỗ trợ nhanh chóng</p>
+          <p>HOTLINE 24/7 : 0964942121</p>
+      </div>
+    </div>
+    <div>
+      <img class="hover:grow hover:shadow-lg rounded-lg" src="https://theme.hstatic.net/200000690725/1001078549/14/home_policy_icon_4.png?v=281"  alt="">
+      <div class="pt-3 items-center justify-between">
+          <p class="font-medium">Thanh toán đa dạng</p>
+          <p>Thanh toán khi nhận hàng, Napas, Visa, Chuyển Khoản</p>
+      </div>
+    </div>
+</div>
+
+ 
 </x-client-layout>

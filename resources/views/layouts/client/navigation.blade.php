@@ -3,7 +3,7 @@
             <img routerLink="" src="https://preview.colorlib.com/theme/ashion/img/logo.png" width="100" height="60" alt="">
             <ul class="nav flex items-center justify-center">
                 <li class="nav-item"><a class="fs-5 fw-normal " href="/home">TRANG CHỦ</a></li>
-                <li class="nav-item"><a class=" fs-5 fw-normal mx-4" href="">SẢN PHẨM</a></li>
+                <li class="nav-item"><a class=" fs-5 fw-normal mx-4" href="/shop">SẢN PHẨM</a></li>
                 <li class="nav-item"><a class=" fs-5 fw-normal" href="">TIN TỨC</a></li>
                 <li class="nav-item"><a class="fs-5 fw-normal mx-4" href="">CỬA HÀNG</a></li>
                 <li class="nav-item"><a class="fs-5 fw-normal" href="/contact">LIÊN HỆ</a></li>

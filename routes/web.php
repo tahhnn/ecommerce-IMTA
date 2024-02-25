@@ -26,6 +26,7 @@ Route::get('/', [ProductController::class, 'home'])->name('welcome');
 Route::get('/home', [ProductController::class, 'home']);
 
 
+
 // Route::match('/detail/{id}/{user_id}',[ProductController::class,'detail']);
 
 
