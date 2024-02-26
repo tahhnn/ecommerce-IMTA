@@ -75,13 +75,18 @@ Route::middleware('admin')->group(function () {
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::resource('/bill', BillController::class)->names('bills');
+    Route::get('/bill/status-bill/{status_bill}', [BillController::class, "find_bill_by_statusBill"])->name('bills.find_bill_by_statusBill');
+    Route::get('/bill/acept-bill/{status_bill}', [BillController::class, "Acept_bill"])->name('bills.Acept_bill');
     Route::get('/billDetail/{billDetail}', [BillDetailController::class, 'deleteBillDetail'])->name('bills.billDetailroute');
 });
 
 Route::middleware('customer')->group(function () {
     Route::resource('/bill-client', CustomerBillController::class)->names('billClient');
     Route::get('/billDetail/{billDetail}', [BillDetailController::class, 'deleteBillDetail'])->name('billClient.billDetailroute');
+    Route::get('/return-payment/{id}', [CustomerBillController::class, 'return_payment'])->name('billClient.return_payment');
     Route::post('/bill-payment', [CustomerBillController::class, 'vnpay_payment'])->name('billClient.vnpay_payment');
+    Route::get('/bill-client/status_bill/{status_bill}', [CustomerBillController::class, 'find_bill_by_statusBill'])->name('billClient.find_bill_by_statusBill');
+    Route::delete('/bill-client/cancel/{id}', [CustomerBillController::class, 'cancel_bill'])->name('billClient.cancel_bill');
 });
 
 require __DIR__ . '/auth.php';

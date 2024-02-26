@@ -99,5 +99,6 @@
             </footer>
            </div>
     </div>
+    <script type="module" src="{{ asset('js/bill_modal.js') }}"></script>
 </body>
 </html>
