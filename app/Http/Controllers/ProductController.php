@@ -29,37 +29,40 @@ class ProductController extends Controller
     try {
         $user_id = auth()->id();
         $data = Product::find($id);
-        $user = User::find($user_id);
+        
         $categories = Category::pluck('name', 'id');
-        
-      
-        $cart = Cart::where('id_user', $user_id)->get();
-        
-        if ($request->isMethod('post')) {
-            if($user_id != null){
-
-                if ($cart->isEmpty()) {
-                    $newCart = new Cart();
-                    $newCart->id_user = $user_id;
-                    $newCart->id_product = $data->id;
-                    $newCart->save();
-                    $cart_id = $newCart->id;
-                } else {
-                    $cart_id = $cart->first()->id;
-                }
-    
-                
-                $CartPR = new CartInProduct();
-                $CartPR->product_id = $data->id;
-                $CartPR->user_id = $user->id;
-                $CartPR->cart_id = $cart_id;
-                $CartPR->save();
-    
-                return redirect(route('cart'));
-            }else{
-                return redirect(route('login'));
-            }
+        if (!auth()->check()) {
+            return redirect(route('login'))->with('error', 'Bạn cần đăng nhập trước khi thêm sản phẩm vào giỏ hàng.');
         }
+      
+        $cart = Cart::where('id_user', $user_id)->first();
+
+if ($request->isMethod('post')) {
+    if (!$cart) {
+        $newCart = new Cart();
+        $newCart->id_user = $user_id;
+        $newCart->id_product = $data->id;
+        $newCart->save();
+        $cart_id = $newCart->id;
+    } else {
+        $cart_id = $cart->id;
+    }
+
+    $existPrd = CartInProduct::where('product_id', $data->id)->where('user_id', $user_id)->first();
+    if ($existPrd) {
+        $existPrd->quantity += 1;
+        $existPrd->save();
+        $cart_id = $existPrd->cart_id;
+    } else {
+        $CartPR = new CartInProduct();
+        $CartPR->product_id = $data->id;
+        $CartPR->user_id = $user_id;
+        $CartPR->cart_id = $cart->id; 
+        $CartPR->save();
+    }
+
+    return redirect(route('cart'));
+}
 
         return view('client.detail', compact('data', 'categories'));
     } catch (Exception $e) {

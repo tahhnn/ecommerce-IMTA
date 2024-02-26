@@ -23,7 +23,8 @@ class BillController extends Controller
             ->join('users', 'users.id', '=', 'bills.id_user')
             ->select('users.name as user_name', 'bills.*')
             ->get();
-        return view('admin.bill.listBill', compact('bills'));
+        $status_bill = -1;
+        return view('admin.bill.listBill', compact('bills', 'status_bill'));
     }
     public function getBillByClient()
     {
@@ -123,12 +124,52 @@ class BillController extends Controller
      */
     public function destroy(Bill $bill)
     {
-        $message = 'Hóa đơn đã thanh toán, không thể xóa!!!';
-        if ($bill->status == 0) {
-            $message = 'Xóa hóa đơn thành công!!!';
-            $bill->delete();
+        $message = 'Hóa đơn đã thanh toán, không thể hủy!!!';
+        if (($bill->status_bill == 0 || $bill->status_bill == 1) && $bill->status == 0) {
+            $message = 'Hủy hóa đơn thành công!!!';
+            $bill->status_bill = 0;
+            $bill->update();
         }
         Session::flash('message', $message);
         return redirect()->route('bills.index');
+    }
+
+    public function find_bill_by_statusBill(int $status_bill)
+    {
+        $bills = DB::table('bills')
+            ->join('users', 'users.id', '=', 'bills.id_user')
+            ->select('users.name as user_name', 'bills.*')
+            ->where('bills.status_bill', '=', $status_bill)
+            ->get();
+        return view('admin.bill.listBill', compact('bills', 'status_bill'));
+    }
+
+
+    public function Acept_bill(String $id)
+    {
+
+
+        $bill = Bill::find($id);
+        if ($bill->status_bill == 1) {
+            $billDetails = DB::table('bill_details')
+                ->join('products', 'products.id', '=', 'bill_details.id_product')
+                ->select('bill_details.*')
+                ->where('id_bill', $id)->get();
+            $products = DB::table('bill_details')
+                ->join('products', 'products.id', '=', 'bill_details.id_product')
+                ->select('products.*')
+                ->where('id_bill', $id)->get();
+            dd($products);
+            foreach ($products as $product) {
+                foreach ($billDetails as $billDetail) {
+                    $product->quantity = $product->quantity - $billDetail->quantity;
+                    $product->update();
+                }
+            }
+        }
+        $bill->status_bill = $bill->status_bill + 1;
+        $bill->update();
+
+        return redirect()->route('bills.find_bill_by_statusBill', $bill->status_bill);
     }
 }

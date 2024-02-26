@@ -15,12 +15,19 @@
                 <th scope="col" class="px-6 py-3">
                     Giá  
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Số lượng  
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Thành tiền 
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         @php
         $totalPrice = 0; // Khởi tạo biến tổng tiền
+       
     @endphp
             @foreach($cartinPR as $index => $p)
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -34,11 +41,18 @@
                     {{$p->product_price}}
                 </th>
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{$p->quantity}}
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{$p->quantity * $p->product_price}}
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <a href="/cart-delete/{{$p->id}}">Remove</a>
                 </th>
             </tr>
             @php
-            $totalPrice += $p->product_price; // Cộng thêm giá của mỗi sản phẩm vào tổng tiền
+            $price = $p->product_price * $p->quantity;
+            $totalPrice += $price; // Cộng thêm giá của mỗi sản phẩm vào tổng tiền
         @endphp
             @endforeach
             
@@ -49,6 +63,6 @@
 
 </div>
 
-    <button class="btn btn-warning text-orange-400 hover:text-orange-500 mr-12 ml-[1700px]" type="submit">Tạo hóa đơn</button>
+    <button class=" text-orange-400 hover:text-orange-500" type="submit">Tạo hóa đơn</button>
     </form>
 </x-client-layout>

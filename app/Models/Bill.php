@@ -12,6 +12,8 @@ class Bill extends Model
         "id_user",
         "paid_date",
         "status",
+        "status_bill",
+        "payment_type",
         "total_bill"
     ];
     public function user()

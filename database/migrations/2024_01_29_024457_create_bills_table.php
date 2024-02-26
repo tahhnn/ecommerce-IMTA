@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->date('paid_date');
             $table->integer('status');
+            $table->integer('status_bill');
             $table->integer('total_bill');
+            $table->integer('payment_type');
             $table->unsignedBigInteger('id_user');
             $table->timestamps();
 
