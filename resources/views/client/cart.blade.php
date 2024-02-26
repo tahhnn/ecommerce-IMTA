@@ -63,6 +63,6 @@
 
 </div>
 
-    <button class="btn btn-warning text-orange-400 hover:text-orange-500 mr-12 ml-[1700px]" type="submit">Tạo hóa đơn</button>
+    <button class=" text-orange-400 hover:text-orange-500" type="submit">Tạo hóa đơn</button>
     </form>
 </x-client-layout>

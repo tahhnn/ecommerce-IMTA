@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->date_ti('paid_date');
+            $table->date('paid_date');
             $table->integer('status');
             $table->integer('status_bill');
             $table->integer('total_bill');
